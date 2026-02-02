@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -25,8 +26,6 @@ const authSchema = z.object({
 export default function AuthPage() {
   const { signIn, signUp } = useAuth();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,9 +76,16 @@ export default function AuthPage() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="h-10 w-10 rounded-lg bg-primary flex items-center justify-center">
-            <FolderKanban className="h-6 w-6 text-primary-foreground" />
-          </div>
+          <div className="rounded-lg bg-primary flex items-center justify-center">
+                        <Image
+                          src="https://res.cloudinary.com/dxvf9uqwe/image/upload/v1770028108/woldreamz_cover_j50v3r.jpg"
+                          alt="Taskflow logo"
+                          width={200}
+                          height={300}
+                          priority
+                          className=""
+                        />
+                      </div>
           <span className="text-2xl font-bold text-foreground">
             TaskFlow
           </span>
