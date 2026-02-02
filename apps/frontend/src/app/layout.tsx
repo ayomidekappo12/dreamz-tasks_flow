@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import App from "@/components/layout/app";
 import { Sora, Inter } from "next/font/google";
@@ -88,12 +88,16 @@ const organizationSchema = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#ffffff",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html suppressHydrationWarning lang="en" className={fontClass}>
       <head>
