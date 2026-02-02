@@ -4,14 +4,10 @@ import { MetadataRoute } from "next";
 export const dynamic = "force-static"; 
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.cannyscleaning.com";
+  const baseUrl = "https://www.taskflow.com";
 
   const staticPages: MetadataRoute.Sitemap = [
     "",
-    "/cleaning/about",
-    "/cleaning/service",
-    "/cleaning/contact",
-    "/cleaning/booking",
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),

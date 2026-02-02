@@ -1,25 +1,14 @@
 "use client";
 
-import { useContext, createContext, ReactNode } from "react";
-import { normalizeError, AppError } from "@/lib/errors";
+import { createContext, useContext, ReactNode } from "react";
 
 type ErrorHandler = (error: unknown) => void;
 
 const ErrorHandlerContext = createContext<ErrorHandler | undefined>(undefined);
 
-interface ErrorHandlerProviderProps {
-  children?: ReactNode;
-}
-
-export const ErrorProvider = ({ children }: ErrorHandlerProviderProps) => {
+export function ErrorProvider({ children }: { children: ReactNode }) {
   const handleError: ErrorHandler = (error) => {
-    const normalized: AppError = normalizeError(error);
-
-    console.error("App Error:", normalized.message);
-
-    if (normalized.code === 401) {
-      // auth.logout();
-    }
+    console.error("App Error:", error);
   };
 
   return (
@@ -27,12 +16,12 @@ export const ErrorProvider = ({ children }: ErrorHandlerProviderProps) => {
       {children}
     </ErrorHandlerContext.Provider>
   );
-};
+}
 
-export const useErrorHandler = () => {
-  const context = useContext(ErrorHandlerContext);
-  if (!context) {
-    throw new Error("useErrorHandler must be used within an <ErrorProvider>");
+export function useErrorHandler() {
+  const ctx = useContext(ErrorHandlerContext);
+  if (!ctx) {
+    throw new Error("useErrorHandler must be used within ErrorProvider");
   }
-  return context;
-};
+  return ctx;
+}

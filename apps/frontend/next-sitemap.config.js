@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "http://lendsqr.com",
+  siteUrl: "https://www.taskflow.com",
   generateRobotsTxt: true,
   sitemapSize: 5000,
   changefreq: "daily",
@@ -12,12 +12,6 @@ module.exports = {
       lastmod: new Date().toISOString(),
       priority: 0.8,
     },
-    {
-      loc: "/business",
-      lastmod: new Date().toISOString(),
-      priority: 0.8,
-    },
-    { loc: "/business", lastmod: new Date().toISOString(), priority: 0.7 },
     { loc: "/contact-us", lastmod: new Date().toISOString(), priority: 0.6 },
   ],
 };

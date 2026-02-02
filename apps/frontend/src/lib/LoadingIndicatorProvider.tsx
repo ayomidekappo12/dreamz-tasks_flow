@@ -14,7 +14,7 @@ export const LoadingIndicatorProvider = ({
       {children}
       <NextTopLoader
         height={2}
-        color="#3B82F6"
+        color="#000000"
         showSpinner={true}
       />
     </>

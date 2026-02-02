@@ -1,10 +1,10 @@
 {
-  "name": "Cannys Cleaning Services",
-  "short_name": "Cannys Cleaning",
+  "name": "Taskflow",
+  "short_name": "Taskflow",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#00bdff",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "/favicon.ico",

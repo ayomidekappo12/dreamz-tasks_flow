@@ -1,29 +1,29 @@
 export default {
-  titleTemplate: "%s | Cannys Cleaning Services",
+  titleTemplate: "%s | Taskflow - Streamlined Task Management for Teams",
   defaultTitle:
-    "Cannys - 5★ Rated Cleaning Services Trusted by 1,000+ Happy Customers | Cannys Cleaning Services",
+    "Taskflow - Streamlined Task Management for Teams",
   description:
-    "Cannys Cleaning Services provides professional cleaning for homes and offices. Rated 5 stars by over 1,000 happy customers across the UK. Book a trusted, affordable cleaner today.",
+    "Taskflow helps teams manage tasks efficiently. Create, assign, and track tasks with ease.",
   openGraph: {
     type: "website",
     locale: "en_UK",
-    url: "https://www.cannyscleaning.com",
-    site_name: "Cannys Cleaning Services",
-    title: "Cannys Cleaning Services - 5★ Rated by 1,000+ Customers",
+    url: "https://www.taskflow.com",
+    site_name: "Taskflow",
+    title: "Taskflow - Streamlined Task Management for Teams",
     description:
-      "Rated 5 stars by over 1,000 satisfied clients — professional, affordable, and reliable cleaning for homes and offices in the UK.",
+      "Taskflow helps teams manage tasks efficiently. Create, assign, and track tasks with ease.",
   },
   additionalMetaTags: [
     {
       name: "keywords",
       content:
-        "cleaning services, professional cleaners, home cleaning, office cleaning, 5 star cleaning, UK cleaning company, trusted cleaners, Cannys Cleaning Services",
+        "task management, team collaboration, productivity tools, task tracking, project management",
     },
   ],
   additionalLinkTags: [
     {
       rel: "canonical",
-      href: "https://www.cannyscleaning.com",
+      href: "https://www.taskflow.com",
     },
   ],
 };
