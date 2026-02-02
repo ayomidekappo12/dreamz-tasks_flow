@@ -10,7 +10,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
+//  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (loading) return;
@@ -24,7 +24,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
     // AUTHENTICATED ON AUTH PAGE: Redirect to returnTo or dashboard
     if (user && pathname === "/auth") {
-      const returnTo = searchParams.get("returnTo") || "/features/dashboard";
+      //const returnTo = searchParams.get("returnTo") || "/features/dashboard";
+      const returnTo = "/features/dashboard";
       // Sanitize redirect target (prevent open redirect vulnerability)
       const safeReturn =
         returnTo.startsWith("/") && !returnTo.startsWith("//")
@@ -38,7 +39,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     if (user && pathname === "/") {
       router.replace("/features/dashboard");
     }
-  }, [user, loading, pathname, router, searchParams]);
+  }, [user, loading, pathname, router, ]);
 
   if (loading) {
     return (

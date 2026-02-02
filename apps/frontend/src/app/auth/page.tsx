@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, FolderKanban } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import useAuth from "@/lib/auth/auth";
 import { z } from "zod";
 
