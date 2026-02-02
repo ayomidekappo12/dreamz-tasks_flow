@@ -60,8 +60,7 @@ export const metadata: Metadata = {
     },
   },
 
-  // Theme + PWA manifest
-  themeColor: "#ffffff",
+  // Theme + PWA manifes
   manifest: "/manifest.json",
 };
 
