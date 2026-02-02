@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,6 +73,7 @@ export default function AuthPage() {
   };
 
   return (
+    <Suspense fallback={<div className="h-4" />}>
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center gap-2 mb-8">
@@ -168,5 +169,6 @@ export default function AuthPage() {
         </Card>
       </div>
     </div>
+    </Suspense>
   );
 }

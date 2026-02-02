@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -201,121 +201,125 @@ export default function ProjectDetail() {
 
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card/50 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => router.push("features/dashboard")}
-          >
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
+    <Suspense fallback={<div className="h-4" />}>
+      <div className="min-h-screen bg-background">
+        <header className="border-b bg-card/50 sticky top-0 z-10">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.push("/features/dashboard")}
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
 
-          <div className="flex-1">
-            <h1 className="text-xl font-semibold truncate">{project?.name}</h1>
-            {project?.description && (
-              <p className="text-sm text-muted-foreground truncate">
-                {project.description}
-              </p>
-            )}
-          </div>
+            <div className="flex-1">
+              <h1 className="text-xl font-semibold truncate">
+                {project?.name}
+              </h1>
+              {project?.description && (
+                <p className="text-sm text-muted-foreground truncate">
+                  {project.description}
+                </p>
+              )}
+            </div>
 
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm">
-                <Plus className="h-4 w-4 mr-1" />
-                Add Task
-              </Button>
-            </DialogTrigger>
-
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Create New Task</DialogTitle>
-              </DialogHeader>
-
-              <form onSubmit={handleCreateTask} className="space-y-4 mt-4">
-                <Input
-                  placeholder="Task title"
-                  value={newTask.title}
-                  onChange={(e) =>
-                    setNewTask((p) => ({ ...p, title: e.target.value }))
-                  }
-                  required
-                />
-                <Textarea
-                  placeholder="Optional description"
-                  value={newTask.description}
-                  onChange={(e) =>
-                    setNewTask((p) => ({
-                      ...p,
-                      description: e.target.value,
-                    }))
-                  }
-                />
-                <Button className="w-full" disabled={creating}>
-                  {creating ? "Creating..." : "Create Task"}
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm">
+                  <Plus className="h-4 w-4 mr-1" />
+                  Add Task
                 </Button>
-              </form>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </header>
+              </DialogTrigger>
 
-      <main className="max-w-6xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {(Object.keys(tasksByStatus) as TaskStatus[]).map((status) => {
-            const StatusIcon = statusConfig[status].icon;
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Create New Task</DialogTitle>
+                </DialogHeader>
 
-            return (
-              <div key={status} className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <StatusIcon className="h-4 w-4" />
-                  <span className="font-medium">
-                    {statusConfig[status].label}
-                  </span>
-                  <Badge className="ml-auto">
-                    {tasksByStatus[status].length}
-                  </Badge>
+                <form onSubmit={handleCreateTask} className="space-y-4 mt-4">
+                  <Input
+                    placeholder="Task title"
+                    value={newTask.title}
+                    onChange={(e) =>
+                      setNewTask((p) => ({ ...p, title: e.target.value }))
+                    }
+                    required
+                  />
+                  <Textarea
+                    placeholder="Optional description"
+                    value={newTask.description}
+                    onChange={(e) =>
+                      setNewTask((p) => ({
+                        ...p,
+                        description: e.target.value,
+                      }))
+                    }
+                  />
+                  <Button className="w-full" disabled={creating}>
+                    {creating ? "Creating..." : "Create Task"}
+                  </Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </header>
+
+        <main className="max-w-6xl mx-auto px-6 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {(Object.keys(tasksByStatus) as TaskStatus[]).map((status) => {
+              const StatusIcon = statusConfig[status].icon;
+
+              return (
+                <div key={status} className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <StatusIcon className="h-4 w-4" />
+                    <span className="font-medium">
+                      {statusConfig[status].label}
+                    </span>
+                    <Badge className="ml-auto">
+                      {tasksByStatus[status].length}
+                    </Badge>
+                  </div>
+
+                  {tasksByStatus[status].map((task) => (
+                    <Card key={task.id}>
+                      <CardHeader className="p-4 pb-2">
+                        <CardTitle className="text-sm">{task.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 space-y-2">
+                        {task.description && (
+                          <p className="text-xs text-muted-foreground">
+                            {task.description}
+                          </p>
+                        )}
+
+                        <Select
+                          value={task.status}
+                          onValueChange={(value) =>
+                            handleStatusChange(task.id, value as TaskStatus)
+                          }
+                        >
+                          <SelectTrigger className="h-7 text-xs">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="todo">To Do</SelectItem>
+                            <SelectItem value="in_progress">
+                              In Progress
+                            </SelectItem>
+                            <SelectItem value="done">Done</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-
-                {tasksByStatus[status].map((task) => (
-                  <Card key={task.id}>
-                    <CardHeader className="p-4 pb-2">
-                      <CardTitle className="text-sm">{task.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="p-4 pt-0 space-y-2">
-                      {task.description && (
-                        <p className="text-xs text-muted-foreground">
-                          {task.description}
-                        </p>
-                      )}
-
-                      <Select
-                        value={task.status}
-                        onValueChange={(value) =>
-                          handleStatusChange(task.id, value as TaskStatus)
-                        }
-                      >
-                        <SelectTrigger className="h-7 text-xs">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="todo">To Do</SelectItem>
-                          <SelectItem value="in_progress">
-                            In Progress
-                          </SelectItem>
-                          <SelectItem value="done">Done</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            );
-          })}
-        </div>
-      </main>
-    </div>
+              );
+            })}
+          </div>
+        </main>
+      </div>
+    </Suspense>
   );
 }
